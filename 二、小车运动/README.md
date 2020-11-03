@@ -4,7 +4,7 @@
 
 ### 1、Arduino基础 ###
 
-####（1）Arduino 单板资源 ####
+#### （1）Arduino 单板资源 ####
 
 在本节中，我们将了解Arduino板上的不同组件。将学习Arduino UNO板，因为它是Arduino板系列中最受欢迎的。此外，它是开始使用电子和编码的最佳板。有些板看起来与下面给出的有些不同，但多数Arduino中的这些组件大部分是共同的，只要你熟悉一种，其他的都类似。
 
@@ -70,7 +70,7 @@ Arduino UNO板有14个数字I/O引脚（15）（其中6个提供PWM（脉宽调�
 
 AREF代表模拟参考。它有时用于设置外部参考电压（0至5伏之间）作为模拟输入引脚的上限。
 
-####（2）Arduino I/O函数 ####
+#### （2）Arduino I/O函数 ####
 
 Arduino板上的引脚可以配置为输入或输出。我们将在这些模式下解释引脚的功能。重要的是要注意，大多数Arduino模拟引脚可以按照与数字引脚完全相同的方式进行配置和使用。
 
@@ -168,7 +168,7 @@ digitalWrite()函数语法：
 	   delay(500); // delay for 500 ms
 	}
 
-####（3）Arduino串口通信 ####
+#### （3）Arduino串口通信 ####
 
 今天，大多数Arduino板都是用几种不同的串行通信系统作为标准设备。
 
@@ -334,7 +334,7 @@ digitalWrite(2，HIGH) - 当使用引脚作为OUTPUT时，可以将其命令为H
 	
 	void loop() {
 	   digitalWrite(motorPinL, HIGH);
-	   digitalWrite(motorPinR, HIGH);
+	   digitalWrite(motorPinR, LOW);
 	}
 
 如果一切正常，可以看到电机轮子转动，例如：
@@ -367,13 +367,17 @@ digitalWrite(2，HIGH) - 当使用引脚作为OUTPUT时，可以将其命令为H
 - Arduino Tx->1端口接串口模块的RX端
 - Arduino Rx->2端口接串口模块的TX端
 
-注意：电机组如何接还需要读者自行尝试连接，知道前后左右运动同步，这个没有唯一标准，需要微调。
+<!-- 注意：电机组如何接还需要读者自行尝试连接，知道前后左右运动同步，这个没有唯一标准，需要微调。
 
 还需要注意的是左右两组电机中每一组电机两两的连接方法：
 
 ![](https://i.imgur.com/lZjXSLj.jpg)
 
-同一组电机两两管脚交叉连接，如上图所示。
+同一组电机两两管脚交叉连接，如上图所示。 -->
+
+电机组连接方式如图，需要注意的是上下电机连接到电源模块同一侧的接口，电机的玻璃胶的焊口接线要朝内才正确。
+
+![](pic/car.jpg)
 
 下面将给出控制前后左右停的控制代码片段：
 
@@ -405,7 +409,7 @@ digitalWrite(2，HIGH) - 当使用引脚作为OUTPUT时，可以将其命令为H
 	  digitalWrite(right_down, 1);
 	}
 	
-	void left(void)                                               
+	void left(void)  
 	{
 	  digitalWrite(left_up, 1);
 	  digitalWrite(left_down, 0);
@@ -482,12 +486,8 @@ digitalWrite(2，HIGH) - 当使用引脚作为OUTPUT时，可以将其命令为H
 	{
 	        for(int i=0; i<ms; i++)
 	        {
-	           for(unsigned long j=0;j<1985;j++) ;
+	           for(unsigned long j=0;j<1985;j++) ;//自制软件延时1ms
 	        }        
-	}
-	void delay1()//自制软件延时1ms
-	{
-	        for(unsigned long j=0;j<1985;j++) ;    
 	}
 	
 	void loop() { 
@@ -517,3 +517,9 @@ digitalWrite(2，HIGH) - 当使用引脚作为OUTPUT时，可以将其命令为H
 ![](https://i.imgur.com/YXjy129.png)
 
 你所购买的蓝牙模块最好和我的一模一样，不然后面的调试软件可能用起来会不怎么顺利。可以对比这个蓝牙模块和上节提到的串口模块，将串口模块和Arduino连接线一一对应接到蓝牙模块上，也就是说让蓝牙模块取代串口模块，注意RXD、TXD和GND不要接错了，然后可以下载安装附加资料里面的蓝牙调试软件，打开手机蓝牙开始“发短信”控制小车运动。
+
+调试蓝牙的测试代码如下，我在这里调试的时候板子的名字为HC-06，密码默认为1234，发送字符类型记得选为utf8。
+
+```
+
+```
